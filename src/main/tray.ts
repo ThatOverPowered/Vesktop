@@ -43,41 +43,16 @@ export async function initTray(win: BrowserWindow, setIsQuitting: (val: boolean)
 
     const trayMenu = Menu.buildFromTemplate([
         {
-            label: "Open",
+            label: "Mostrar",
             click() {
                 win.show();
-            }
-        },
-        {
-            label: "About",
-            click: createAboutWindow
-        },
-        {
-            label: "Repair Vencord",
-            async click() {
-                await downloadVencordFiles();
-                app.relaunch();
-                app.quit();
-            }
-        },
-        {
-            label: "Reset Vesktop",
-            async click() {
-                await clearData(win);
             }
         },
         {
             type: "separator"
         },
         {
-            label: "Restart",
-            click() {
-                app.relaunch();
-                app.quit();
-            }
-        },
-        {
-            label: "Quit",
+            label: "Salir",
             click() {
                 setIsQuitting(true);
                 app.quit();
