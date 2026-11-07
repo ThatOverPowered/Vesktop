@@ -7,15 +7,11 @@
 import { app, BrowserWindow, Menu, Tray } from "electron";
 import { sleep } from "shared/utils/sleep";
 
-import { createAboutWindow } from "./about";
 import { isStatusNotifierHostRegistered } from "./dbus";
 import { AppEvents } from "./events";
 import { Settings } from "./settings";
 import { resolveAssetPath } from "./userAssets";
-import { clearData } from "./utils/clearData";
-import { relaunch } from "./utils/relaunch";
 import { showWindow } from "./utils/showWindow";
-import { downloadVencordFiles } from "./utils/vencordLoader";
 
 let tray: Tray | undefined;
 let trayVariant: "tray" | "trayUnread" = "tray";
@@ -67,37 +63,13 @@ export async function initTray(win: BrowserWindow, setIsQuitting: (val: boolean)
 
     const trayMenu = Menu.buildFromTemplate([
         {
-            label: "Open",
+            label: "Mostrar",
             click() {
                 showWindow(win);
             }
         },
         {
-            label: "About",
-            click: createAboutWindow
-        },
-        {
-            label: "Repair Vencord",
-            async click() {
-                await downloadVencordFiles();
-                relaunch();
-            }
-        },
-        {
-            label: "Reset Vesktop",
-            async click() {
-                await clearData(win);
-            }
-        },
-        {
-            type: "separator"
-        },
-        {
-            label: "Restart",
-            click: relaunch
-        },
-        {
-            label: "Quit",
+            label: "Salir",
             click() {
                 setIsQuitting(true);
                 app.quit();
